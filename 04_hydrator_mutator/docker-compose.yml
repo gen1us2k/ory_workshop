@@ -24,6 +24,12 @@ services:
     networks:
       - intranet
 
+  hydrator:
+    build:
+      context: "hydrator"
+    networks:
+      - intranet
+
   postgres-kratos:
     image: postgres:9.6
     environment:

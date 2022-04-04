@@ -1,7 +1,7 @@
 -
   id: "api:protected"
   upstream:
-    preserve_host: true
+    preserve_host: false
     url: "http://hello:8090"
   match:
     url: "http://127.0.0.1:8080/<**>"
@@ -11,7 +11,7 @@
   authenticators:
     - handler: cookie_session
   mutators:
-    - handler: header
+    - handler: hydrator
   authorizer:
     handler: allow
   errors:
