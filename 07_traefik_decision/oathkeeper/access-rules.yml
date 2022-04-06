@@ -12,4 +12,6 @@
   authorizer:
     handler: allow
   errors:
-    - handler: json
+    - handler: redirect
+      config:
+        to: http://127.0.0.1:4455/login

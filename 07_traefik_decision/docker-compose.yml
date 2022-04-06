@@ -54,9 +54,6 @@ services:
       - "traefik.http.routers.hello.service=hello"
       - "traefik.http.services.hello.loadbalancer.server.port=8090"
       - "traefik.http.routers.hello.middlewares=oathkeeper@docker"
-      - "traefik.http.middlewares.autherrors.errors.status=401"
-      - "traefik.http.middlewares.autherrors.errors.service=serviceError"
-      - "traefik.http.middlewares.autherrors.errors.query=http://127.0.0.1:4455/login"
 
   postgres-kratos:
     image: postgres:9.6
@@ -108,6 +105,16 @@ services:
     ports:
       - "4455:3000"
     restart: on-failure
+    labels:
+      - "traefik.enable=true"
+      # App settings
+      - "traefik.http.routers.uinode.rule=Path('/login')"
+      - "traefik.http.routers.uinode.entrypoints=web"
+      # Attach to the oathkeeper middleware defined in oathkeeper
+      - "traefik.http.routers.uinode.service=uinode"
+      - "traefik.http.services.uinode.loadbalancer.server.port=3000"
+      - "traefik.http.routers.uinode.middlewares=oathkeeper@docker"
+
 
 
   mailslurper:
