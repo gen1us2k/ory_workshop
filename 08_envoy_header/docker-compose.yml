@@ -4,7 +4,7 @@ services:
   envoy:
     image: envoyproxy/envoy-dev:e07746c5100da110754bcf83940a254025e65e54
     ports:
-      - "10000:10000"
+      - "8000:10000"
       - "9901:9901"
     volumes:
       - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
