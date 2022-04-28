@@ -5,6 +5,8 @@ services:
     image: nginx
     ports:
       - "8080:80"
+    links:
+      - kratos:kratos
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/index.html:/app/html:ro
@@ -21,7 +23,7 @@ services:
       - intranet
 
   kratos-migrate:
-    image: oryd/kratos:v0.8.0-alpha.3
+    image: oryd/kratos:v0.9.0-alpha.3
     links:
       - postgres-kratos:postgres-kratos
     environment:
@@ -35,7 +37,7 @@ services:
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
 
   kratos:
-    image: oryd/kratos:v0.8.0-alpha.3
+    image: oryd/kratos:v0.9.0-alpha.3
     links:
       - postgres-kratos:postgres-kratos
     environment:
